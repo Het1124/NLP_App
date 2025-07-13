@@ -118,10 +118,10 @@ class NLPApp:
         sentiment_btn = Button(self.root, text="Sentiment Analysis", width=30, height=2, command = self.sentiment_gui)
         sentiment_btn.pack(pady=(10, 10))
 
-        NER_btn = Button(self.root, text="Named Entity Recognition", width=30, height=2)
+        NER_btn = Button(self.root, text="Named Entity Recognition", width=30, height=2, command=self.ner_gui)
         NER_btn.pack(pady=(10, 10))
 
-        Emotion_btn = Button(self.root, text="Emotion Prediction", width=30, height=2)
+        Emotion_btn = Button(self.root, text="Emotion Prediction", width=30, height=2, command=self.emotion_gui)
         Emotion_btn.pack(pady=(10, 10))
 
         Logout_button = Button(self.root, text="Logout", width=10, height=1, command=self.login_gui)
@@ -146,7 +146,7 @@ class NLPApp:
         self.sentiment_input = Entry(self.root, width = 50)
         self.sentiment_input.pack(pady = (10,10), ipady = 4)
 
-        sentiment_btn = Button(self.root, text = "Analyze Sentiment", width=30, height=1)
+        sentiment_btn = Button(self.root, text="Analyze Sentiment", width=30, height=1, command=self.analyze_sentiment)
         sentiment_btn.pack(pady = (10,10))
 
         self.sentiment_result = Label(self.root, text="",bg="#34495E", fg = "White")
@@ -155,6 +155,78 @@ class NLPApp:
 
         goback_btn = Button(self.root, text="Back", width=8, height=1, command=self.home_gui)
         goback_btn.pack(pady=(10, 10))
+
+    def analyze_sentiment(self):
+        text = self.sentiment_input.get()
+        if not text.strip():
+            self.sentiment_result.config(text="Please enter some text.")
+            return
+
+        # Dummy sentiment logic
+        if "good" in text.lower():
+            sentiment = "Positive"
+        elif "bad" in text.lower():
+            sentiment = "Negative"
+        else:
+            sentiment = "Neutral"
+
+        self.sentiment_result.config(text=f"Sentiment: {sentiment}")
+
+    def ner_gui(self):
+        self.clear()
+
+        heading = Label(self.root, text="Named Entity Recognition", bg='#2C3E50', fg='White')
+        heading.pack(pady=(30, 20))
+        heading.configure(font=('verdana', 20))
+
+        label = Label(self.root, text="Enter text for NER:")
+        label.pack(pady=(10, 5))
+
+        self.ner_input = Entry(self.root, width=50)
+        self.ner_input.pack(pady=(5, 10), ipady=4)
+
+        self.ner_result = Label(self.root, text="", bg="#34495E", fg="White")
+        self.ner_result.pack(pady=(10, 10))
+        self.ner_result.configure(font=('verdana', 14))
+
+        analyze_btn = Button(self.root, text="Analyze NER", width=30, height=1, command=self.analyze_ner)
+        analyze_btn.pack(pady=(10, 10))
+
+        back_btn = Button(self.root, text="Back", width=10, command=self.home_gui)
+        back_btn.pack(pady=(10, 10))
+
+    def analyze_ner(self):
+        text = self.ner_input.get()
+        # Dummy logic
+        self.ner_result.config(text="Named Entities: [John, India, Monday]")
+
+    def emotion_gui(self):
+        self.clear()
+
+        heading = Label(self.root, text="Emotion Prediction", bg='#2C3E50', fg='White')
+        heading.pack(pady=(30, 20))
+        heading.configure(font=('verdana', 20))
+
+        label = Label(self.root, text="Enter text for emotion prediction:")
+        label.pack(pady=(10, 5))
+
+        self.emotion_input = Entry(self.root, width=50)
+        self.emotion_input.pack(pady=(5, 10), ipady=4)
+
+        self.emotion_result = Label(self.root, text="", bg="#34495E", fg="White")
+        self.emotion_result.pack(pady=(10, 10))
+        self.emotion_result.configure(font=('verdana', 14))
+
+        analyze_btn = Button(self.root, text="Predict Emotion", width=30, height=1, command=self.predict_emotion)
+        analyze_btn.pack(pady=(10, 10))
+
+        back_btn = Button(self.root, text="Back", width=10, command=self.home_gui)
+        back_btn.pack(pady=(10, 10))
+
+    def predict_emotion(self):
+        text = self.emotion_input.get()
+        # Dummy logic
+        self.emotion_result.config(text="Predicted Emotion: Happy")
 
 
 nlp =NLPApp()
